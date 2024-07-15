@@ -1,0 +1,161 @@
+<ServerManagerConfiguration>
+  <ProxyGroup name="filters">
+    <SourceProxy
+      name="ttkSignedDistanceField"
+      class="ttkSignedDistanceField"
+      label="TTK SignedDistanceField">
+      <Documentation
+        long_help="TTK plugin for the topological optimization of scalar data."
+        short_help="TTK plugin for the topological optimization of scalar
+        data.">
+
+      </Documentation>
+      
+
+      <InputProperty command="SetInputConnection" name="Input">
+        <ProxyGroupDomain name="groups">
+          <Group name="sources" />
+          <Group name="filters" />
+        </ProxyGroupDomain>
+        <DataTypeDomain name="input_type">
+          <DataType value="vtkDataSet" />
+        </DataTypeDomain>
+        <Documentation>This property specifies the dataset whose data will
+        be probed
+        </Documentation>
+      </InputProperty>
+      
+      <IntVectorProperty command="SetSamplingDimensions"
+                         default_values="100 100 100"
+                         name="SamplingDimensions"
+                         number_of_elements="3"
+                         panel_visibility="default">
+                         <IntRangeDomain name="range" min="1 1 1"/>
+        <Documentation>
+        How many linear samples we want along each axis
+        </Documentation>
+      </IntVectorProperty>
+      
+      <IntVectorProperty
+      name="ExpandBox"
+      command="SetExpandBox"
+      label="Expand Box"
+      number_of_elements="1"
+      default_values="1">
+        <Documentation>
+          
+        </Documentation>
+        <BooleanDomain name="bool"/>
+      </IntVectorProperty>
+
+      <IntVectorProperty
+      name="NaiveMethod"
+      command="SetNaiveMethod"
+      label="Naive Method"
+      number_of_elements="1"
+      default_values="0">
+        <Documentation>
+          
+        </Documentation>
+        <BooleanDomain name="bool"/>
+      </IntVectorProperty>
+      
+      <IntVectorProperty
+      name="NaiveMethodAllEdges"
+      command="SetNaiveMethodAllEdges"
+      label="Naive Method All Edges"
+      number_of_elements="1"
+      default_values="0">
+        <Hints>
+        <PropertyWidgetDecorator type="GenericDecorator"
+                                  mode="visibility"
+                                  property="NaiveMethod"
+                                  value="1" />
+        </Hints>
+        <Documentation>
+          
+        </Documentation>
+        <BooleanDomain name="bool"/>
+      </IntVectorProperty>
+      
+      <IntVectorProperty
+      name="FastMarching"
+      command="SetFastMarching"
+      label="Fast Marching"
+      number_of_elements="1"
+      default_values="0">
+        <Documentation>
+          
+        </Documentation>
+        <BooleanDomain name="bool"/>
+      </IntVectorProperty>
+      
+      <IntVectorProperty
+      name="FastMarchingOrder"
+      command="SetFastMarchingOrder"
+      label="Fast Marching Order"
+      number_of_elements="1"
+      default_values="1">
+        <Hints>
+        <PropertyWidgetDecorator type="GenericDecorator"
+                                  mode="visibility"
+                                  property="FastMarching"
+                                  value="1" />
+        </Hints>
+        <Documentation>
+          
+        </Documentation>
+      </IntVectorProperty>
+      
+      <IntVectorProperty
+      name="FastMarchingIterativeBand"
+      command="SetFastMarchingIterativeBand"
+      label="Fast Marching Iterative Band"
+      number_of_elements="1"
+      default_values="1">
+        <Hints>
+        <PropertyWidgetDecorator type="GenericDecorator"
+                                  mode="visibility"
+                                  property="FastMarching"
+                                  value="1" />
+        </Hints>
+        <Documentation>
+          
+        </Documentation>
+        <BooleanDomain name="bool"/>
+      </IntVectorProperty>
+      
+      <DoubleVectorProperty
+      name="FastMarchingIterativeBandRatio"
+      command="SetFastMarchingIterativeBandRatio"
+      label="Fast Marching Iterative Band Ratio"
+      number_of_elements="1"
+      default_values="1">
+        <Hints>
+        <PropertyWidgetDecorator type="GenericDecorator"
+                                  mode="visibility"
+                                  property="FastMarching"
+                                  value="1" />
+        <PropertyWidgetDecorator type="GenericDecorator"
+                                  mode="visibility"
+                                  property="FastMarchingIterativeBand"
+                                  value="1" />
+        </Hints>
+        <Documentation>
+          
+        </Documentation>
+        <DoubleRangeDomain name="range" min="0" max="1" />
+      </DoubleVectorProperty>
+      
+      ${DEBUG_WIDGETS}
+
+      <PropertyGroup panel_widget="Line" label="Input options">
+        
+      </PropertyGroup>
+
+      <Hints>
+        <ShowInMenu category="TTK - Scalar Data" />
+      </Hints>
+    </SourceProxy>
+  </ProxyGroup>
+</ServerManagerConfiguration>

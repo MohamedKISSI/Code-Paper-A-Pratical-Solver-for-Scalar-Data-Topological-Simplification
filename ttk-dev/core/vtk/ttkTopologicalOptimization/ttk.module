@@ -1,0 +1,12 @@
+NAME
+  ttkTopologicalOptimization
+SOURCES
+  ttkTopologicalOptimization.cpp
+HEADERS
+  ttkTopologicalOptimization.h
+DEPENDS
+  topologicalOptimization
+  localizedTopologicalOptimization
+  ttkAlgorithm
+  ttkPersistenceDiagram
+

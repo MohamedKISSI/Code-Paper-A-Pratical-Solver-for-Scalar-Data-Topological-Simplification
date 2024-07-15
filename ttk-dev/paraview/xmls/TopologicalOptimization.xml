@@ -1,0 +1,431 @@
+<ServerManagerConfiguration>
+  <ProxyGroup name="filters">
+    <SourceProxy
+      name="ttkTopologicalOptimization"
+      class="ttkTopologicalOptimization"
+      label="TTK TopologicalOptimization">
+      <Documentation
+        long_help="TTK plugin for the topological optimization of scalar data."
+        short_help="TTK plugin for the topological optimization of scalar
+        data.">
+
+      </Documentation>
+
+      <StringVectorProperty
+        name="Scalar Field"
+        command="SetInputArrayToProcess"
+        element_types="0 0 0 0 2"
+        number_of_elements="5"
+        default_values="0"
+        animateable="0"
+        >
+        <ArrayListDomain
+          name="array_list"
+          default_values="0">
+          <RequiredProperties>
+            <Property name="Domain" function="Input" />
+          </RequiredProperties>
+        </ArrayListDomain>
+        <Documentation>
+          Select the scalar field to process.
+        </Documentation>
+      </StringVectorProperty>
+      
+
+      <InputProperty
+        name="Domain"
+        port_index="0"
+        command="SetInputConnection">
+        <ProxyGroupDomain name="groups">
+          <Group name="sources" />
+          <Group name="filters" />
+        </ProxyGroupDomain>
+        <DataTypeDomain name="input_type">
+          <DataType value="vtkDataSet" />
+        </DataTypeDomain>
+        <InputArrayDomain name="input_array" attribute_type="point" number_of_components="1" />
+        <Documentation>
+          Data-set to process.
+        </Documentation>
+      </InputProperty>
+
+      <InputProperty
+        name="Constraints"
+        port_index="1"
+        command="SetInputConnection">
+        <ProxyGroupDomain name="groups">
+          <Group name="sources" />
+          <Group name="filters" />
+        </ProxyGroupDomain>
+        <DataTypeDomain name="input_type">
+          <DataType value="vtkDataSet" />
+        </DataTypeDomain>
+        <InputArrayDomain name="input_array" attribute_type="point" number_of_components="1" />
+        <Documentation>
+          vtkPointSet that represent the constraints of the topological simplification.
+        </Documentation>
+      </InputProperty>
+
+      <IntVectorProperty
+        name="Method"
+        label="Method"
+        command="SetMethod"
+        number_of_elements="1"
+        default_values="0"
+        panel_visibility="advanced" >
+        <EnumerationDomain name="enum">
+          <Entry value="0" text="Direct"/>
+          <Entry value="1" text="Adam"/>
+        </EnumerationDomain>
+      <Documentation>
+          .
+        </Documentation>
+      </IntVectorProperty>
+    
+      <IntVectorProperty
+          name="EpochNumber"
+          label="Epoch number"
+          command="SetEpochNumber"
+          number_of_elements="1"
+          default_values="1000"
+          >
+        <Documentation>
+        Epoch Number.
+      </Documentation>
+      </IntVectorProperty>
+
+      <IntVectorProperty
+        name="ChooseLearningRate"
+        command="SetChooseLearningRate"
+        label="Choose Learning Rate"
+        number_of_elements="1"
+        panel_visibility="advanced"
+        default_values="0">
+        <BooleanDomain name="bool" />
+        <Hints>
+          <PropertyWidgetDecorator type="GenericDecorator"
+                                   mode="visibility"
+                                   property="Method"
+                                   value="1" />
+          <!-- enable this widget when <property> equals <value> -->
+        </Hints>
+        <Documentation>
+          Check this box to choose learning rate.
+        </Documentation>
+      </IntVectorProperty>
+    
+      <DoubleVectorProperty
+          name="LearningRate"
+          label="Learning Rate"
+          command="SetLearningRate"
+          number_of_elements="1"
+          default_values="0.0001"
+          >
+          <Hints>
+          <PropertyWidgetDecorator type="GenericDecorator"
+                                   mode="visibility"
+                                   property="ChooseLearningRate"
+                                   value="1" />
+          
+          <PropertyWidgetDecorator type="GenericDecorator"
+                                   mode="visibility"
+                                   property="Method"
+                                   value="1" />
+          <!-- enable this widget when <property> equals <value> -->
+        </Hints>
+        <Documentation>
+        Learning Rate.
+      </Documentation>
+      </DoubleVectorProperty>
+
+      <DoubleVectorProperty
+          name="EpsilonPenalisation"
+          label="Epsilon"
+          command="SetEpsilonPenalisation"
+          number_of_elements="1"
+          default_values="0.5"
+          >
+        <Hints>
+          <PropertyWidgetDecorator type="GenericDecorator"
+                                   mode="visibility"
+                                   property="Method"
+                                   value="0" />
+          <!-- enable this widget when <property> equals <value> -->
+        </Hints>
+        <Documentation>
+        Epsilon.
+        </Documentation>
+      </DoubleVectorProperty>
+
+
+      <IntVectorProperty
+          name="PDCMethod"
+          label="PDC Method"
+          command="SetPDCMethod"
+          number_of_elements="1"
+         default_values="1"
+         panel_visibility="advanced" >
+         <EnumerationDomain name="enum">
+          <Entry value="0" text="Progressive approach"/>
+          <Entry value="1" text="Classical Auction approach"/>
+        </EnumerationDomain>
+        <Documentation>
+          Type of algorithm for the computation of the barycenter.
+          The Auction algorithm is computationally more expensive than
+          the progressive approach.
+        </Documentation>
+      </IntVectorProperty>
+
+      <IntVectorProperty
+        name="UseAdditionalPrecisionPDC"
+        command="SetUseAdditionalPrecisionPDC"
+        label="Force minimum precision on matchings"
+        number_of_elements="1"
+        default_values="0"
+        >
+        <BooleanDomain name="bool"/>
+        <Documentation>
+            Force the final matchings to respect a given relative precision.
+        </Documentation>
+      </IntVectorProperty>
+
+      <DoubleVectorProperty
+        name="DeltaLim"
+        label="Minimal relative precision"
+        command="SetDeltaLim"
+        number_of_elements="1"
+        default_values="0.01"
+        >
+        <Hints>
+        <PropertyWidgetDecorator type="GenericDecorator"
+                                  mode="visibility"
+                                  property="UseAdditionalPrecisionPDC"
+                                  value="1" />
+        <!-- enable this widget when <property> equals <value> -->
+      </Hints>
+      <Documentation>
+      Minimal precision for the approximation of the Wasserstein distance used in the assignment between diagrams.
+      </Documentation>
+
+      </DoubleVectorProperty>
+
+      <DoubleVectorProperty
+          name="CoefStopCondition"
+          label="Coef Stop Condition"
+          command="SetCoefStopCondition"
+          number_of_elements="1"
+          default_values="0.01"
+          >
+        <Documentation>
+        Stopping criterion: when the loss becomes less than a percentage (e.g. 1%) of the original loss (between input diagram and simplified diagram).
+      </Documentation>
+      </DoubleVectorProperty>
+ 
+      <IntVectorProperty
+        name="SemiDirectMatching"
+        command="SetSemiDirectMatching"
+        label="Semi-direct match"
+        number_of_elements="1"
+        panel_visibility="advanced"
+        default_values="0">
+        <BooleanDomain name="bool" />
+        <Documentation>
+          Check this box to use semi-direct matching.
+        </Documentation>
+      </IntVectorProperty>      
+
+      <IntVectorProperty
+        name="UseTimeThreshold"
+        command="SetUseTimeThreshold"
+        label="Use Time Threshold"
+        number_of_elements="1"
+        panel_visibility="advanced"
+        default_values="1">
+        <BooleanDomain name="bool" />
+        <Documentation>
+          Check this box to Use Time Threshold.
+        </Documentation>
+      </IntVectorProperty>
+    
+      <DoubleVectorProperty
+          name="TimeThreshold"
+          label="Time Threshold"
+          command="SetTimeThreshold"
+          number_of_elements="1"
+          default_values="0.00001"
+          >
+          <Hints>
+          <PropertyWidgetDecorator type="GenericDecorator"
+                                   mode="visibility"
+                                   property="UseTimeThreshold"
+                                   value="1" />
+          <!-- enable this widget when <property> equals <value> -->
+        </Hints>
+        <Documentation>
+        Coefficient for the data tether.
+      </Documentation>
+      </DoubleVectorProperty>
+
+      <IntVectorProperty
+        name="UseLazyDiscretGradientUpdate"
+        command="SetUseLazyDiscretGradientUpdate"
+        label="Lazy Discret Gradient Update"
+        number_of_elements="1"
+        panel_visibility="advanced"
+        default_values="0">
+        <BooleanDomain name="bool" />
+        <Documentation>
+          Check this box to use lazy discret gradient update.
+        </Documentation>
+      </IntVectorProperty>
+
+      <IntVectorProperty
+        name="UseTopologicalSimplification"
+        command="SetUseTopologicalSimplification"
+        label="Topological Simplification"
+        number_of_elements="1"
+        panel_visibility="advanced"
+        default_values="0">
+        <BooleanDomain name="bool" />
+        <Documentation>
+          Check this box to use Topological Simplification.
+        </Documentation>
+      </IntVectorProperty>  
+
+      <IntVectorProperty
+        name="UseTheMultiBlocksApproach"
+        command="SetUseTheMultiBlocksApproach"
+        label="MultiBlocks approach"
+        number_of_elements="1"
+        panel_visibility="advanced"
+        default_values="0">
+        <BooleanDomain name="bool" />
+        <Documentation>
+          Check this box to use the multiBlocks approach.
+        </Documentation>
+      </IntVectorProperty>
+
+      <IntVectorProperty
+          name="Number Epoch MultiBlock"
+          label="Number Epoch MultiBlock"
+          command="SetNumberEpochMultiBlock"
+          number_of_elements="1"
+          default_values="1"
+          >
+          <Hints>
+          <PropertyWidgetDecorator type="GenericDecorator"
+                                   mode="visibility"
+                                   property="UseTheMultiBlocksApproach"
+                                   value="1" />
+          <!-- enable this widget when <property> equals <value> -->
+        </Hints>
+        <Documentation>
+        Number Epoch per level MultiBlock.
+      </Documentation>
+      </IntVectorProperty>
+
+      <IntVectorProperty
+          name="Use One Level"
+          label="Use only one level"
+          command="SetMultiBlockOneLevel"
+          number_of_elements="1"
+          default_values="0"
+          >
+          <BooleanDomain name="bool" />
+          <Hints>
+          <PropertyWidgetDecorator type="GenericDecorator"
+                                   mode="visibility"
+                                   property="UseTheMultiBlocksApproach"
+                                   value="1" />
+          <!-- enable this widget when <property> equals <value> -->
+        </Hints>
+        <Documentation>
+        Use only one level.
+      </Documentation>
+      </IntVectorProperty>
+
+
+      <DoubleVectorProperty
+          name="Blocks per thread"
+          label="Number of blocks per thread"
+          command="SetNumberOfBlocksPerThread"
+          number_of_elements="1"
+          default_values="1"
+          >
+          <Hints>
+          <PropertyWidgetDecorator type="GenericDecorator"
+                                   mode="visibility"
+                                   property="UseTheMultiBlocksApproach"
+                                   value="1" />
+          <!-- enable this widget when <property> equals <value> -->
+        </Hints>
+        <Documentation>
+        Number of blocks per thread.
+      </Documentation>
+      </DoubleVectorProperty>
+
+
+      <IntVectorProperty
+          name="FinePairManagement"
+          label="Fine Pair Management"
+          command="SetFinePairManagement"
+          number_of_elements="1"
+         default_values="0"
+         panel_visibility="advanced" >
+         <EnumerationDomain name="enum">
+          <Entry value="0" text="Choose removal method"/>
+          <Entry value="1" text="Fill The Domain"/>
+          <Entry value="2" text="Cut Domain"/>
+        </EnumerationDomain>
+        <Documentation>
+          Fine management of pairs of the deletion method
+        </Documentation>
+      </IntVectorProperty>
+
+      <IntVectorProperty
+          name="SaveData"
+          label="Save Data"
+          command="SetSaveData"
+          number_of_elements="1"
+          default_values="0">
+          <BooleanDomain name="bool" />
+        <Documentation>
+        SaveData == true :  to save execution time measurements
+      </Documentation>
+      </IntVectorProperty>
+
+      <PropertyGroup panel_widget="Line" label="Input options">
+        <Property name="Scalar Field" />
+      </PropertyGroup>
+
+      <PropertyGroup panel_widget="Line" label="Method options">
+        <Property name="Method" />
+        <Property name="PDCMethod" />
+        <Property name="UseAdditionalPrecisionPDC" />
+        <Property name="DeltaLim" />
+        <Property name="CoefStopCondition" />
+        <Property name="EpochNumber" />
+        <Property name="UseTimeThreshold" />
+        <Property name="TimeThreshold" />
+      </PropertyGroup>
+
+      <PropertyGroup panel_widget="Line" label="Acceleration options">
+        <Property name="UseLazyDiscretGradientUpdate" />
+        <Property name="UseTheMultiBlocksApproach" />
+        <Property name="UseTopologicalSimplification" />
+        <Property name="SemiDirectMatching" />
+      </PropertyGroup>
+
+      <PropertyGroup panel_widget="Line" label="Optimization options">
+        <Property name="FinePairManagement"/>
+      </PropertyGroup>
+
+      ${DEBUG_WIDGETS}
+
+      <Hints>
+        <ShowInMenu category="TTK - Scalar Data" />
+      </Hints>
+    </SourceProxy>
+  </ProxyGroup>
+</ServerManagerConfiguration>
+
