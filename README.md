@@ -1,4 +1,4 @@
-# title
+# A Pratical Solver for Scalar Data Topological Simplification
 
 This archive contains the exact code used for the manuscript referenced below.
 
