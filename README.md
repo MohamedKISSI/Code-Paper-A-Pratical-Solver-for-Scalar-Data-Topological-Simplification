@@ -90,7 +90,7 @@ Go in the root directory of this repository and extract the data:
 tar xvJf aneurism.tar.xz
 ```
 
-Create the file that will store the execution results:
+Create the folder that will store the execution results:
 
 ```bash
 mkdir results
