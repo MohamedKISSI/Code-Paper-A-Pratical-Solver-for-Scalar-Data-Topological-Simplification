@@ -90,6 +90,12 @@ Go in the root directory of this repository and extract the data:
 tar xvJf aneurism.tar.xz
 ```
 
+Create the file that will store the execution results:
+
+```bash
+mkdir results
+```
+
 To reproduce the results from the tables from the manuscript for the "Aneurysm" dataset, please go to the `scripts` directory and enter the following commands:
 
 ```bash
