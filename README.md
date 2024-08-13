@@ -9,8 +9,24 @@ This archive contains the exact code used for the manuscript referenced below.
 
 Tested on Ubuntu 22.04.3 LTS.
 
+You can follow the instructions below or perform the installation using the install.sh script. 
 
-### Install the dependencies
+### Installation via install.sh Script
+
+1. **Make the script executable**:
+   - Open a terminal and navigate to the directory where `install.sh` is located.
+   - Run the following command to make the script executable:
+     ```bash
+     chmod +x install.sh
+     ```
+
+2. **Run the script**:
+   - Execute the script by typing:
+     ```bash
+     ./install.sh
+     ```
+
+### Step-by-Step Manual Installation
 
 ```bash
 sudo apt-get install cmake-qt-gui libboost-system-dev libpython3.10-dev libxt-dev libxcursor-dev libopengl-dev
@@ -109,3 +125,11 @@ chmod +x runScripts.sh
 ```
 
 In the results folder, you will find a CSV file named "timePerformanceComparison.csv," showcasing a comparison of time performance between the baseline optimization method and our solver for the simplification setup described in the paper. Additionally, there is another CSV file named "optimizationQualityComparison.csv" presenting a comparison of optimization quality between the baseline method and our solver. Both approaches' optimized data are also available in VTI files within the same folder.
+
+### Expected Timing
+
+The script is expected to take approximately 50 minutes to complete, depending on your system's performance.
+
+### Reference to Table 1
+
+For a detailed comparison of performance and other metrics, please refer to Table 1 in the paper.
