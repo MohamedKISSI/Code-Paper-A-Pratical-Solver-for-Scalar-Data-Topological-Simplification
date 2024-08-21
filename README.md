@@ -9,7 +9,7 @@ This archive contains the exact code used for the manuscript referenced below.
 
 Tested on Ubuntu 22.04.3 LTS.
 
-You can follow the instructions below or perform the installation using the install.sh script. 
+You can follow the instructions below or perform the installation using the install.sh script. You should choose one of the following methods: either follow the instructions below or perform the installation using the install.sh script, but not both.
 
 ### Installation via install.sh Script
 
